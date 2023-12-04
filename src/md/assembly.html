@@ -1,0 +1,71 @@
+<h1 id="assembleur">Assembleur</h1>
+<h2 id="introduction">Introduction</h2>
+<p><a href="https://tryhackme.com/room/introtox8664">Source TryhackMe</a></p>
+<h2 id="format">Format</h2>
+<pre><code><span class="hljs-keyword">movq </span>source, destination
+</code></pre>
+<p>This involves:</p>
+<ul>
+    <li>Transferring constants(which are prefixed using the $ operator) e.g. movq $3 rax would move the constant 3 to the register</li>
+    <li>Transferring values from a register e.g. movq %rax %rbx which involves moving value from rax to rbx</li>
+    <li>Transferring values from memory which is shown by putting registers inside brackets e.g. movq %rax (%rbx) which means move value stored in %rax to memory location represented by %rbx.</li>
+</ul>
+<p>Intel Data Type Suffix Size(bytes) Byte b 1 Word w 2 Double Word l 4 Quad Word q 8 Single Precision s 4 Double Precision l 8</p>
+<p>Some other important instructions are:</p>
+<ul>
+    <li><code>leaq source, destination</code>: this instruction sets destination to the address denoted by the expression in source</li>
+    <li><code>addq source, destination</code>: destination = destination + source</li>
+    <li><code>subq source, destination</code>: destination = destination - source</li>
+    <li><code>imulq source, destination</code>: destination = destination * source</li>
+    <li><code>salq source, destination</code>: destination = destination &lt;&lt; source where &lt;&lt; is the left bit shifting operator</li>
+    <li><code>sarq source, destination</code>: destination = destination &gt;&gt; source where &gt;&gt; is the right bit shifting operator</li>
+    <li><code>xorq source, destination</code>: destination = destination XOR source</li>
+    <li><code>andq source, destination</code>: destination = destination &amp; source</li>
+    <li><code>orq source, destination</code>: destination = destination | source</li>
+</ul>
+<h2 id="register">Register</h2>
+<p>The architecture is x86-64, the registers are 64 bit and Intel has a list of 16 registers:</p>
+<p>64 bit 32 bit %rax %eax %rbx %ebx %rcx %ecx %rdx %edx %rsi %esi %rdi %edi %rsp %esp %rbp %ebp %r8 %r8d %r9 %r9d %r10 %r10d %r11 %r11d %r12 %r12d %r13 %r13d %r14 %r14d %r15 %r15d</p>
+<h2 id="syntax">Syntax</h2>
+<h3 id="at-t">AT&amp;T</h3>
+<pre><code>(fcn) main <span class="hljs-number">78</span>
+|   <span class="hljs-keyword">int</span> main (<span class="hljs-keyword">int</span> argc, char **argv, char **envp)<span class="hljs-comment">;</span>
+|           <span class="hljs-comment">; DATA XREF from entry0 (0x5619ecb9557d)</span>
+|           <span class="hljs-number">0x5619ecb9566a</span>      4883ec08       <span class="hljs-keyword">sub</span> <span class="hljs-built_in">rsp</span>, <span class="hljs-number">8</span>
+|           <span class="hljs-number">0x5619ecb9566e</span>      b902000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">ecx</span>, <span class="hljs-number">2</span>
+|           <span class="hljs-number">0x5619ecb95673</span>      ba01000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">edx</span>, <span class="hljs-number">1</span>
+|           <span class="hljs-number">0x5619ecb95678</span>      488d35c90000.  <span class="hljs-keyword">lea</span> <span class="hljs-built_in">rsi</span>, <span class="hljs-keyword">str</span>.value_for_a_is__d_and_b_is__d <span class="hljs-comment">; 0x5619ecb95748 ; "value for a is %d and b is %d\n"</span>
+|           <span class="hljs-number">0x5619ecb9567f</span>      bf01000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">edi</span>, <span class="hljs-number">1</span>
+|           <span class="hljs-number">0x5619ecb95684</span>      b800000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">eax</span>, <span class="hljs-number">0</span>
+|           <span class="hljs-number">0x5619ecb95689</span>      e8b2feffff     <span class="hljs-keyword">call</span> sym.imp.__printf_chk
+|           <span class="hljs-number">0x5619ecb9568e</span>      b901000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">ecx</span>, <span class="hljs-number">1</span>
+|           <span class="hljs-number">0x5619ecb95693</span>      ba02000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">edx</span>, <span class="hljs-number">2</span>
+|           <span class="hljs-number">0x5619ecb95698</span>      488d35c90000.  <span class="hljs-keyword">lea</span> <span class="hljs-built_in">rsi</span>, <span class="hljs-keyword">str</span>.value_of_a_is__d_and_b_is__d <span class="hljs-comment">; 0x5619ecb95768 ; "value of a is %d and b is %d\n"</span>
+|           <span class="hljs-number">0x5619ecb9569f</span>      bf01000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">edi</span>, <span class="hljs-number">1</span>
+|           <span class="hljs-number">0x5619ecb956a4</span>      b800000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">eax</span>, <span class="hljs-number">0</span>
+|           <span class="hljs-number">0x5619ecb956a9</span>      e892feffff     <span class="hljs-keyword">call</span> sym.imp.__printf_chk
+|           <span class="hljs-number">0x5619ecb956ae</span>      b800000000     <span class="hljs-keyword">mov</span> <span class="hljs-built_in">eax</span>, <span class="hljs-number">0</span>
+|           <span class="hljs-number">0x5619ecb956b3</span>      4883c408       <span class="hljs-keyword">add</span> <span class="hljs-built_in">rsp</span>, <span class="hljs-number">8</span>
+\           <span class="hljs-number">0x5619ecb956b7</span>      c3             <span class="hljs-keyword">ret</span>
+</code></pre>
+<h3 id="intel">Intel</h3>
+<pre><code>(fcn) main <span class="hljs-number">78</span>
+|   int main (int argc, char **argv, char **envp);
+|           ; DATA XREF from entry0 (<span class="hljs-number">0x5619ecb9557d</span>)
+|           <span class="hljs-number">0x5619ecb9566a</span>      <span class="hljs-number">4883</span>ec08       subq $<span class="hljs-number">8</span>, %rsp
+|           <span class="hljs-number">0x5619ecb9566e</span>      b902000000     movl $<span class="hljs-number">2</span>, %ecx
+|           <span class="hljs-number">0x5619ecb95673</span>      ba01000000     movl $<span class="hljs-number">1</span>, %edx
+|           <span class="hljs-number">0x5619ecb95678</span>      <span class="hljs-number">488</span>d35c90000.  leaq str.value_for_a_is__d_and_b_is__d, %rsi ; <span class="hljs-number">0x5619ecb95748</span> ; <span class="hljs-string">"value for a is %d and b is %d<span class="hljs-subst">\n</span>"</span>
+|           <span class="hljs-number">0x5619ecb9567f</span>      bf01000000     movl $<span class="hljs-number">1</span>, %edi
+|           <span class="hljs-number">0x5619ecb95684</span>      b800000000     movl $<span class="hljs-number">0</span>, %eax
+|           <span class="hljs-number">0x5619ecb95689</span>      e8b2feffff     callq sym.imp.__printf_chk
+|           <span class="hljs-number">0x5619ecb9568e</span>      b901000000     movl $<span class="hljs-number">1</span>, %ecx
+|           <span class="hljs-number">0x5619ecb95693</span>      ba02000000     movl $<span class="hljs-number">2</span>, %edx
+|           <span class="hljs-number">0x5619ecb95698</span>      <span class="hljs-number">488</span>d35c90000.  leaq str.value_of_a_is__d_and_b_is__d, %rsi ; <span class="hljs-number">0x5619ecb95768</span> ; <span class="hljs-string">"value of a is %d and b is %d<span class="hljs-subst">\n</span>"</span>
+|           <span class="hljs-number">0x5619ecb9569f</span>      bf01000000     movl $<span class="hljs-number">1</span>, %edi
+|           <span class="hljs-number">0x5619ecb956a4</span>      b800000000     movl $<span class="hljs-number">0</span>, %eax
+|           <span class="hljs-number">0x5619ecb956a9</span>      e892feffff     callq sym.imp.__printf_chk
+|           <span class="hljs-number">0x5619ecb956ae</span>      b800000000     movl $<span class="hljs-number">0</span>, %eax
+|           <span class="hljs-number">0x5619ecb956b3</span>      <span class="hljs-number">4883</span>c408       addq $<span class="hljs-number">8</span>, %rsp
+\           <span class="hljs-number">0x5619ecb956b7</span>      c3             retq
+</code></pre>
